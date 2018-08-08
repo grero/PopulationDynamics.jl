@@ -31,6 +31,9 @@ function sfunc(A::Vector{T}, ndims) where T <: Real
     Aa
 end
 
+"""
+Fit the activity in `X` as `X[t,:,:] = A*X[t-1,:,:]`
+"""
 function fit_dynamics(X::Array{Float64,3}, rtime, bidx;maxoutdim=10,RNG=MersenneTwister(rand(UInt32)),show_trace=true)
     nbins, ndims, ntrials = size(X)
     if maxoutdim < ndims
