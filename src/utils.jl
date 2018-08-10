@@ -88,13 +88,18 @@ function test_case(σ = 0.01;RNG=MersenneTwister(rand(UInt32)))
     X = zeros(130,6,56)
     X[1,:,:,:] = 0.01*randn(RNG, 6,56)
     X[:,end,:] = 1.0
+    evolve!(X, A,σ;RNG=RNG)
+    X, A
+end
+
+function evolve!(X::Array{T1,3}, A::Matrix{T2}, σ=0.01;RNG=MersenneTwister(rand(UInt32))) where T1 <: Real where T2 <: Real
     for j in 1:size(X,3)
         for i in 2:size(X,1)
             X[i,:,j] = A*X[i-1,:,j]
             X[i,1:end-1,j] += σ*randn(RNG, 5)
         end
     end
-    X, A
+    nothing
 end
 
 function test_cfunc1()
