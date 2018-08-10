@@ -34,7 +34,12 @@ end
 """
 Fit the activity in `X` as `X[t,:,:] = A*X[t-1,:,:]`
 """
-function fit_dynamics(X::Array{Float64,3}, rtime, bidx;maxoutdim=10,RNG=MersenneTwister(rand(UInt32)),show_trace=true)
+function fit_dynamics(X::Array{Float64,3},
+                      rtime=collect(linspace(0,1,size(X,3))),
+                      bidx=1:size(X,3);
+                      maxoutdim=10,
+                      RNG=MersenneTwister(rand(UInt32)),
+                      show_trace=true)
     nbins, ndims, ntrials = size(X)
     if maxoutdim < ndims
         pca = compute_pca(X./sqrt.(maximum(X,(1,3))), rtime, bidx;maxoutdim=maxoutdim)
