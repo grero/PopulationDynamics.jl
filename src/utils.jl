@@ -2,7 +2,7 @@ function compute_pca(Y::Array{T,3}, rtime::Vector{Float64}, bidx::AbstractVector
     nbins, ncells, ntrials = size(Y)
     sidx = sortperm(rtime)
     X = zeros(nbins, ncells, length(bidx))
-    qm = sqrt.(maximum(Y,(1,3))[1,:,1:1])
+    qm = sqrt.(maximum(abs.(Y),(1,3))[1,:,1:1])
     for i in 1:size(X,1)
        for j in 1:length(bidx)-1
             x = mean(Y[i,:,sidx[bidx[j]:bidx[j+1]-1]],2)
