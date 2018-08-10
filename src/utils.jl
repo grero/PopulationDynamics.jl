@@ -73,6 +73,9 @@ function func!(Xn::Array{T,3}, A::Matrix{T},Xp::Array{T,3}) where T <: Real
     end
 end
 
+"""
+Test case showing simple rotational dynamics. A five dimensional system starts from an initial, random, ortogonal state and evolves through time via a transformation matrix consisting of rotation and translation.
+"""
 function test_case(σ = 0.01;RNG=MersenneTwister(rand(UInt32)))
     AA = 0.01*randn(RNG, 5,5)
     Σ = AA - AA' #skew symmetric
