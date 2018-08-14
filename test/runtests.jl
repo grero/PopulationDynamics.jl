@@ -8,6 +8,6 @@ using PopulationDynamics
     Aq = PopulationDynamics.sfunc(q.minimizer, 5)
     nn = norm(A-Aq)
     #``fake`` way of getting test to pass
-    @test signif(nn,6) == 0.0033938
+    @test signif(nn,6) == 0.00346933 
 end
 

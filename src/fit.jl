@@ -4,9 +4,13 @@ function cfunc(A::Matrix{T}, Xp::Array{T2,3}, Xn::Array{T2,3}) where T <: Real w
     xn = zeros(T, nbins,ndims)
     for j in 1:ntrials
         A_mul_Bt!(xn, Xp[:,:,j],A)
-        L += vecnorm(xn - Xn[:,:,j])
+        L += sum(abs2, xn - Xn[:,:,j])
     end
     L
+end
+
+function cfunc(A::Matrix{T}, Xp::Array{T2,2}, Xn::Array{T2,2}) where T <: Real where T2 <: Real
+    L = sum(abs2, A_mul_Bt(Xp, A) - Xn)
 end
 
 """
